@@ -1,20 +1,25 @@
-import { useState } from "react"
-const App = () => {
-  const [count,setCount] = useState(0)
+import { useState } from "react";
+import InputArea from "./components/InputArea";
+import OutputArea from "./components/OutputArea";
+import GenerateButton from "./components/GenerateButton";
+import { parseTiket } from "./utils/parser";
 
-  const HandleClick = () => {
-    setCount(count + 1)
-  }
+export default function App() {
+  const [rawText, setRawText] = useState("");
+  const [result, setResult] = useState("");
+
+  const handleGenerate = () => {
+    const output = parseTiket(rawText);
+    setResult(output);
+  };
+
   return (
-    <div className=" text-white">
-      <div className=" justify-center items-center grid space-y-5 mt-52">
-         <p className=" text-center">Extension Creator <a href="https://www.instagram.com/nandakaws/" className=" duration-200 hover:text-purple-500">NandaKaws</a></p>
-         <h1 className=" text-purple-500 text-5xl font-bold  "><span className=" text-white">Lets</span>code!</h1>
-         <button onClick={HandleClick} className=" rounded-lg font-bold text-xl bg-purple-500">Click</button>
-         <h1 className=" text-center font-bold  ">{count}</h1>
-      </div>
-    </div>
-  )
-}
+    <div className="min-h-screen bg-gray-900 text-white p-6">
+      <h1 className="text-2xl font-bold mb-4">Generator Rekap Tiket MSRS</h1>
 
-export default App
+      <InputArea value={rawText} onChange={setRawText} />
+      <GenerateButton onClick={handleGenerate} />
+      <OutputArea value={result} />
+    </div>
+  );
+}
