@@ -2,17 +2,25 @@ import PropTypes from "prop-types";
 
 import { useState } from "react";
 
+import { toast } from "react-hot-toast";
+
 export default function OutputArea({ value }) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
+    if (!value) {
+      toast.error("Tidak ada data untuk di-copy!");
+      return;
+    }
+
     try {
       await navigator.clipboard.writeText(value);
       setCopied(true);
+      toast.success("Berhasil di-copy!");
 
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      alert("Gagal copy!");
+      toast.error("Gagal copy!");
     }
   };
 
