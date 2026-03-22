@@ -27,11 +27,10 @@ export default function OutputArea({ value }) {
   return (
     <div>
       <textarea
-        className="w-full h-64 p-3 rounded bg-black border border-gray-700"
+        className="w-full h-64 md:h-[400px] p-3 rounded-xl bg-black border border-gray-700 focus:outline-none text-xs md:text-sm"
         value={value}
         readOnly
       />
-
       <button
         onClick={handleCopy}
         className="mt-2 px-4 py-2 bg-green-600 hover:bg-green-700 rounded"

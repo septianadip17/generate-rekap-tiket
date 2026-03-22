@@ -34,28 +34,51 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-6">
+    <div className="min-h-screen bg-gray-950 text-white px-4 py-6 md:px-10">
       <Toaster position="top-right" />
 
-      <h1 className="text-2xl font-bold mb-4">
-        Generator Rekap Tiket MSRS
-      </h1>
-
-      <InputArea value={rawText} onChange={setRawText} />
-
-      <div className="flex gap-2 mb-4">
-        <GenerateButton onClick={handleGenerate} disabled={!rawText.trim()} />
-
-        <button
-          onClick={handleClear}
-          className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded"
-        >
-          Clear
-        </button>
+      {/* HEADER */}
+      <div className="mb-6">
+        <h1 className="text-2xl md:text-3xl font-bold">
+          Generator Rekap Tiket MSRS
+        </h1>
+        <p className="text-gray-400 text-sm">
+          Convert raw alarm → format MSRS otomatis
+        </p>
       </div>
 
-      <div ref={outputRef}>
-        <OutputArea value={result} />
+      {/* GRID */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* INPUT CARD */}
+        <div className="bg-gray-900 rounded-2xl p-4 shadow-lg">
+          <h2 className="mb-3 font-semibold text-lg">Input</h2>
+
+          <InputArea value={rawText} onChange={setRawText} />
+
+          <div className="flex gap-2 mt-3">
+            <GenerateButton
+              onClick={handleGenerate}
+              disabled={!rawText.trim()}
+            />
+
+            <button
+              onClick={handleClear}
+              className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-xl transition active:scale-95"
+            >
+              Clear
+            </button>
+          </div>
+        </div>
+
+        {/* OUTPUT CARD */}
+        <div
+          ref={outputRef}
+          className="bg-gray-900 rounded-2xl p-4 shadow-lg flex flex-col"
+        >
+          <h2 className="mb-3 font-semibold text-lg">Output</h2>
+
+          <OutputArea value={result} />
+        </div>
       </div>
     </div>
   );
