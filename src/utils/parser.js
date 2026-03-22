@@ -1,8 +1,9 @@
 export function parseTiket(text) {
-  const blocks = text.split("============================================")
-                     .join("")
-                     .split(/\d+\.\n/g)
-                     .filter(Boolean);
+  const blocks = text
+    .split("============================================")
+    .join("")
+    .split(/\d+\.\n/g)
+    .filter(Boolean);
 
   let results = [];
 
@@ -34,7 +35,7 @@ export function parseTiket(text) {
       "Open",
       "", // kolom kosong
       tiket,
-      formatDateTime(waktuTiket)
+      formatDateTime(waktuTiket),
     ].join("\t");
 
     results.push(row);
@@ -51,8 +52,18 @@ function getValue(text, key) {
 
 function formatDate(date) {
   if (!date) return "";
+
   const d = new Date(date);
-  return d.toISOString().slice(0, 10);
+
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+
+  const hours = String(d.getHours()).padStart(2, "0");
+  const minutes = String(d.getMinutes()).padStart(2, "0");
+  const seconds = String(d.getSeconds()).padStart(2, "0");
+
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
 function formatDateTime(date) {
