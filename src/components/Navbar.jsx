@@ -6,7 +6,7 @@ export default function Navbar() {
       </h1>
 
       <span className="text-xs text-gray-400">
-        <img src="../../public/pln-icon-plus-logo.png" alt="pln icon plus logo" className="h-24 w-28 object-cover" />
+        <img src="../assets/pln-icon-plus-logo.png" alt="pln icon plus logo" className="h-24 w-28 object-cover" />
       </span>
     </div>
   );
