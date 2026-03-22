@@ -1,27 +1,17 @@
-import { useState } from "react";
-import InputArea from "./components/InputArea";
-import OutputArea from "./components/OutputArea";
-import GenerateButton from "./components/GenerateButton";
-import { parseTiket } from "./utils/parser";
+import PropTypes from 'prop-types';
 
-export default function App() {
-  const [rawText, setRawText] = useState("");
-  const [result, setResult] = useState("");
-
-  const handleGenerate = () => {
-    const output = parseTiket(rawText);
-    setResult(output);
-  };
-
+export default function InputArea({ value, onChange }) {
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-6">
-      <h1 className="text-2xl font-bold mb-4">
-        Generator Rekap Tiket MSRS
-      </h1>
-
-      <InputArea value={rawText} onChange={setRawText} />
-      <GenerateButton onClick={handleGenerate} />
-      <OutputArea value={result} />
-    </div>
+    <textarea
+      className="w-full h-64 p-3 rounded bg-gray-800 border border-gray-700 mb-4"
+      placeholder="Paste raw tiket di sini..."
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+    />
   );
 }
+
+InputArea.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};

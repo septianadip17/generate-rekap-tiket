@@ -1,10 +1,16 @@
-export default function InputArea({ value, onChange }) {
+import PropTypes from 'prop-types';
+
+export default function GenerateButton({ onClick }) {
   return (
-    <textarea
-      className="w-full h-64 p-3 rounded bg-gray-800 border border-gray-700 mb-4"
-      placeholder="Paste raw tiket di sini..."
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-    />
+    <button
+      onClick={onClick}
+      className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded mb-4"
+    >
+      Generate
+    </button>
   );
 }
+
+GenerateButton.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};

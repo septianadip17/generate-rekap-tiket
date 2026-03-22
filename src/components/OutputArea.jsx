@@ -1,10 +1,15 @@
-export default function GenerateButton({ onClick }) {
+import PropTypes from 'prop-types';
+
+export default function OutputArea({ value }) {
   return (
-    <button
-      onClick={onClick}
-      className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded mb-4"
-    >
-      Generate
-    </button>
+    <textarea
+      className="w-full h-64 p-3 rounded bg-black border border-gray-700"
+      value={value}
+      readOnly
+    />
   );
 }
+
+OutputArea.propTypes = {
+  value: PropTypes.string.isRequired,
+};
