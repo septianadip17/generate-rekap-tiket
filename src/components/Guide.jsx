@@ -16,7 +16,7 @@ INDIKASI GANGGUAN   : LOST POWER DI SISI UPE/CPE/PELANGGAN
 ID TIKET            : A0478423
 WAKTU TIKET DIBUAT  : 07/03/2026 15:07:07`}
       </pre>
-
+ s 
       <p className="text-xs text-gray-500 mt-2">
         * Bisa input multiple tiket sekaligus
       </p>
