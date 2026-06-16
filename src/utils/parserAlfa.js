@@ -1,29 +1,45 @@
 export function parseAlfa(text) {
-  const blocks = text.split(/\n\s*\n(?=\d+\.)/);
+  const blocks = text.split(/(?=\d+\.\s*A\d+)/g);
 
   const results = [];
 
-  for (const block of blocks) {
-    const ticketMatch = block.match(/(A\d+)/);
-    const siteMatch = block.match(/SITE\s*:?\s*(.+)/i);
-    const ibbcMatch = block.match(/SID IBBC\s*:?\s*(.+)/i);
+  blocks.forEach((block) => {
+    const ticketMatch = block.match(/A\d+/);
+    const siteMatch = block.match(/SITE\s*:\s*(.+)/);
+    const sidMatch = block.match(/SID IBBC\s*:\s*(.+)/);
+    const terminasiMatch = block.match(
+      /ALAMAT TERMINASI\s*:\s*(.+)/
+    );
 
-    if (!ticketMatch || !siteMatch) continue;
+    if (!ticketMatch || !siteMatch) return;
 
-    const ticket = ticketMatch[1];
-
+    const ticket = ticketMatch[0];
     const site = siteMatch[1].trim();
 
-    const kodeTokoMatch = site.match(/-([A-Z0-9]{4})-/i);
+    const kodeToko =
+      site.split("-")[1]?.substring(0, 4) || "";
 
-    const kodeToko = kodeTokoMatch ? kodeTokoMatch[1].toUpperCase() : "-";
+    const sid =
+      sidMatch?.[1]?.trim() || "";
 
-    const sidIbbc = ibbcMatch ? ibbcMatch[1].trim() : "-";
+    const terminasi =
+      terminasiMatch?.[1]?.trim() || "";
 
     results.push(
-      [kodeToko, sidIbbc, "GSM up BB down", "", "", ticket, "Open"].join("\t"),
+      [
+        kodeToko,
+        sid,
+        "", // tanggal alarm
+        "GSM up BB down", // tunnel
+        "", // kuota gsm
+        "", // hasil pengecekan
+        ticket,
+        "Open",
+        "", // update tiket
+        terminasi,
+      ].join("\t")
     );
-  }
+  });
 
   return results.join("\n");
 }
